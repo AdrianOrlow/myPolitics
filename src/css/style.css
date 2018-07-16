@@ -1,0 +1,456 @@
+/* Reset */
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+body {
+    -webkit-text-size-adjust: none;
+}
+
+/* Basic */
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: #fafafa;
+}
+
+.a {
+    color: #333;
+    text-decoration: none;
+}
+
+.a:visited {
+    color: #333;
+    text-decoration: none;
+}
+
+/* Header */
+
+.header {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    width: 100%;
+}
+
+.header__logo {
+    margin: 2em 0 2em;
+    display: block;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.h1--logo {
+    cursor: pointer;
+    font-size: 3.5em;
+    width: auto;
+    font-weight: 700;
+    text-align: center;
+}
+
+.h2--title {
+    font-size: 1.5em;
+    margin-top: 0.2em;
+    text-align: center;
+}
+
+/* Main */
+
+.main {
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+    display: -webkit-box;
+}
+
+.main--container {
+    width: 40%;
+    max-width: 850px;
+    height: auto;
+    margin-top: 2em;
+    background: #f3f3f3;
+    border-radius: 1em;
+    padding: 5% 5%;
+}
+
+/* Results */
+
+.axis {
+    width: 100%;
+    height: 4em;
+    margin-bottom: 1em;
+    border-radius: .5em;
+    overflow: hidden;
+}
+
+.axis>div {
+    float: left;
+    height: 100%;
+}
+
+.bars {
+    width: calc(100% - 8.25em);
+    height: 80%;
+    margin-top: .5em;
+}
+
+.bar {
+    min-width: 1%;
+    height: 80%;
+    color: #fafafa;
+    font-weight: 600;
+    text-align: center;
+    line-height: 3.25em;
+    float: left;
+}
+
+.icon {
+    width: 2.75em;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 1.5em;
+    line-height: 2.5em;
+    text-align: center;
+    border-radius: .2em;
+    box-shadow: 0 5px 20px -1px #44444440;
+    cursor: pointer;
+}
+
+.icon--notfa {
+    width: 2em;
+    font-family: Montserrat;
+    font-size: 2em;
+    line-height: 2em;
+}
+
+/* Icons */
+
+.icon--communism {
+    color: #fafafa;
+    background: #e74c3c;
+}
+
+.icon--communism:before {
+    content: "☭";
+}
+
+.icon--capitalism {
+    color: #fff;
+    background: #2ecc71;
+}
+
+.icon--capitalism:before {
+    content: "";
+}
+
+.icon--anarchism {
+    color: #fff;
+    background: #34495e;
+}
+
+.icon--anarchism:before {
+    content: "Ⓐ";
+}
+
+.icon--authoritarianism {
+    color: #fff;
+    background: #3498db;
+}
+
+.icon--authoritarianism:before {
+    content: "";
+}
+
+.icon--pacifism {
+    color: #fff;
+    background: #6C7A89;
+}
+
+.icon--pacifism:before {
+    content: "";
+}
+
+.icon--militarism {
+    color: #fff;
+    background: #C3272B;
+}
+
+.icon--militarism:before {
+    content: "";
+}
+
+.icon--environmentalism {
+    color: #fff;
+    background: #006442;
+}
+
+.icon--environmentalism:before {
+    content: "";
+}
+
+.icon--anthropocentrism {
+    color: #fff;
+    background: #FFA631;
+}
+
+.icon--anthropocentrism:before {
+    content: "";
+}
+
+.icon--secularism {
+    color: #fff;
+    background: #9b59b6;
+}
+
+.icon--secularism:before {
+    content: "";
+}
+
+.icon--fundamentalism {
+    color: #fff;
+    background: #1abc9c;
+}
+
+.icon--fundamentalism:before {
+    content: "";
+}
+
+.icon--cosmopolitanism {
+    color: #fff;
+    background: #4D8FAC;
+}
+
+.icon--cosmopolitanism:before {
+    content: "";
+}
+
+.icon--nationalism {
+    color: #fff;
+    background: #f99e35;
+}
+
+.icon--nationalism:before {
+    content: "";
+}
+
+/* Bars */
+
+.bar--communism {
+    background: #c0392b;
+}
+
+.bar--capitalism {
+    background: #27ae60;
+}
+
+.bar--anarchism {
+    background: #2c3e50;
+}
+
+.bar--authoritarianism {
+    background: #2980b9;
+}
+
+.bar--pacifism {
+    background: #56616c;
+}
+
+.bar--militarism {
+    background: #ae2326;
+}
+
+.bar--environmentalism {
+    background: #005135;
+}
+
+.bar--anthropocentrism {
+    background: #e5952c;
+}
+
+.bar--secularism {
+    background: #8e44ad;
+}
+
+.bar--fundamentalism {
+    background: #16a085;
+}
+
+.bar--cosmopolitanism {
+    background: #45809a;
+}
+
+.bar--nationalism {
+    background: #eb9532;
+}
+
+/* Modals */
+
+.modal--info {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30em;
+    height: 30em;
+    background: #f5f5f5;
+    border-radius: 1em;
+    overflow: hidden;
+    box-shadow: 0 0px 20px -1px #44444440;
+}
+
+.info--name {
+    width: 70%;
+    height: 15%;
+    float: left;
+    color: #fff;
+    font-weight: 600;
+    font-size: 2em;
+    padding: 0 5%;
+    line-height: 2.25em;
+}
+
+.info--symbol {
+    width: 20%;
+    height: 15%;
+    float: left;
+    font-size: 2em;
+    text-align: center;
+    line-height: 2.25em;
+}
+
+.info--container {
+    height: 65%;
+    margin-top: 15%;
+    padding: 10%;
+    font-size: 1.2em;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
