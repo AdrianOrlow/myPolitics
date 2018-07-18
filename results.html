@@ -25,70 +25,130 @@
 </head>
 
 <body>
-    <header class="header">
+    <script type="application/javascript" src="./db/ideologiesInfo.js"></script>
+    <header id="header" class="header">
         <div class="header__logo"></div>
-        <h1 class="h1--logo">myPolitics</h1>
+        <a href="./index.html">
+            <h1 class="h1--logo">myPolitics</h1>
+        </a>
         <h2 class="h2--title">Wyniki</h2>
         </div>
     </header>
     <main class="main">
-        <div class="main--container">
+        <div id="mainContainer" class="main--container">
+            <div class="axis--label">XXX</div>
             <div class="axis">
-                <div class="icon icon--communism icon--notfa"></div>
+                <div onclick="showInfo('communism')" class="icon icon--communism icon--notfa"></div>
                 <div class="bars">
-                    <div class="bar bar--communism" style="width: 80%">80%</div>
-                    <div class="bar bar--capitalism" style="width: 20%">20%</div>
+                    <div class="bar bar--communism" style="width: 70%">60%</div>
+                    <div class="bar bar--grey" style="width: 10%"></div>
+                    <div class="bar bar--capitalism" style="width: 20%">30%</div>
                 </div>
-                <div class="icon icon--capitalism"></div>
+                <div onclick="showInfo('capitalism')" class="icon icon--capitalism"></div>
             </div>
+            <div class="axis--label">XXX</div>
             <div class="axis">
-                <div class="icon icon--anarchism icon--notfa"></div>
+                <div onclick="showInfo('regulationism')" class="icon icon--regulationism"></div>
+                <div class="bars">
+                    <div class="bar bar--regulationism" style="width: 75%">75%</div>
+                    <div class="bar bar--grey" style="width: 5%"></div>
+                    <div class="bar bar--laissezfaire" style="width: 20%">20%</div>
+                </div>
+                <div onclick="showInfo('laissezfaire')" class="icon icon--laissezfaire"></div>
+            </div>
+            <div class="axis--label">XXX</div>
+            <div class="axis">
+                <div onclick="showInfo('anarchism')" class="icon icon--anarchism icon--notfa"></div>
                 <div class="bars">
                     <div class="bar bar--anarchism" style="width: 30%">30%</div>
                     <div class="bar bar--authoritarianism" style="width: 70%">70%</div>
                 </div>
-                <div class="icon icon--authoritarianism"></div>
+                <div onclick="showInfo('authoritarianism')" class="icon icon--authoritarianism"></div>
             </div>
+            <div class="axis--label">XXX</div>
             <div class="axis">
-                <div class="icon icon--pacifism"></div>
+                <div onclick="showInfo('pacifism')" class="icon icon--pacifism"></div>
                 <div class="bars">
                     <div class="bar bar--pacifism" style="width: 10%"></div>
                     <div class="bar bar--militarism" style="width: 90%">90%</div>
                 </div>
-                <div class="icon icon--militarism"></div>
+                <div onclick="showInfo('militarism')" class="icon icon--militarism"></div>
             </div>
+            <div class="axis--label">XXX</div>
             <div class="axis">
-                <div class="icon icon--environmentalism"></div>
+                <div onclick="showInfo('environmentalism')" class="icon icon--environmentalism"></div>
                 <div class="bars">
                     <div class="bar bar--environmentalism" style="width: 80%">80%</div>
                     <div class="bar bar--anthropocentrism" style="width: 20%">20%</div>
                 </div>
-                <div class="icon icon--anthropocentrism"></div>
+                <div onclick="showInfo('anthropocentrism')" class="icon icon--anthropocentrism"></div>
             </div>
+            <div class="axis--label">XXX</div>
             <div class="axis">
-                <div class="icon icon--secularism"></div>
+                <div onclick="showInfo('progressivism')" class="icon icon--progressivism"></div>
                 <div class="bars">
-                    <div class="bar bar--secularism" style="width: 45%">45%</div>
-                    <div class="bar bar--fundamentalism" style="width: 55%">55%</div>
+                    <div class="bar bar--progressivism" style="width: 45%">45%</div>
+                    <div class="bar bar--traditionalism" style="width: 55%">55%</div>
                 </div>
-                <div class="icon icon--fundamentalism"></div>
+                <div onclick="showInfo('traditionalism')" class="icon icon--traditionalism"></div>
             </div>
+            <div class="axis--label">XXX</div>
             <div class="axis">
-                <div class="icon icon--cosmopolitanism"></div>
+                <div onclick="showInfo('cosmopolitanism')" class="icon icon--cosmopolitanism"></div>
                 <div class="bars">
                     <div class="bar bar--cosmopolitanism" style="width: 5%"></div>
                     <div class="bar bar--nationalism" style="width: 95%">95%</div>
                 </div>
-                <div class="icon icon--nationalism"></div>
+                <div onclick="showInfo('nationalism')" class="icon icon--nationalism"></div>
             </div>
         </div>
-        <div class="modal--info" hidden>
-            <div class="info--name bar--communism">Komunizm</div>
-            <div class="info--symbol icon--communism"></div>
-            <div class="info--container">Ideologia i doktryna społeczna głosząca zniesienie własności prywatnej i różnic klasowych, uspołecznienie środków
-                produkcji i równy podział dóbr</div>
-        </div>
     </main>
+    <div id="popup" class="modal--wrapper block--none" onclick="hideInfo()">
+        <div class="modal--info" >
+            <div id="modalTitle" class="info--name"></div>
+            <div id="modalIcon" class="info--symbol"></div>
+            <div id="modalText" class="info--container"></div>
+        </div>
+    </div>
+
+    <script>
+
+        var values = ["popup","modalTitle","modalIcon","modalText","mainContainer","header"];
+        values.forEach(value => {
+            var value = document.getElementById(value);
+        });
+    
+        function showInfo(choice) {
+            for (var i=0;i<ideologiesInfo.length;i++) {
+                var ideology = ideologiesInfo[i];
+                if (ideology.title == choice) {
+                    modalTitle.innerHTML = ideology.name;
+                    modalText.innerHTML = ideology.desc;
+
+                    modalTitle.classList.add("bar--" + choice);
+                    modalIcon.classList.add("icon--" + choice);
+                    mainContainer.classList.add("block--blur");
+                    header.classList.add("block--blur");
+
+                    if (modalIcon.classList.contains("icon--anarchism" || "icon--communism")) {
+                        modalIcon.classList.add("icon--notfa");
+                    }
+
+                    popup.classList.remove("block--none");
+                    return;
+                }
+            }
+        }
+
+        function hideInfo () {
+            mainContainer.classList.remove("block--blur");
+            header.classList.remove("block--blur");
+            modalTitle.classList = "info--name";
+            modalIcon.className = "info--symbol";
+            popup.classList.add("block--none");
+        }
+    
+    </script>
 </body>
 
 </html>
