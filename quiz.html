@@ -94,7 +94,6 @@
             initQ();
         }
 
-        /* Results function made by PolitiScales */
         function results () {
             var axes = {};
             for (var i=0;i<questions.length;i++) {
@@ -125,8 +124,8 @@
                         }
                     }
 
-                    if(q.answer>0) {
-                        axes[a.axis].val += q.answer * a.effect;
+                    if(q.answer<0) {
+                        axes[a.axis].val += Math.abs(q.answer) * a.effect;
                     }
                     axes[a.axis].sum += Math.max(a.effect, 0);
                 }

@@ -16,7 +16,7 @@ ideologiesInfo = [
     },
     {
         title: "laissezfaire",
-        name: "Leseferzym",
+        name: "Leseferyzm",
         desc: "Koncepcja afirmująca rynkowy ład ekonomiczny, przyznająca państwu jedynie obowiązek czuwania nad przestrzeganiem reguł gry rynkowej, postulująca pełną swobodę działania podmiotom gospodarczym."
     },
     {

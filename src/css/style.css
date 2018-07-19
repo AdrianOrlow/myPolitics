@@ -236,6 +236,7 @@ a:visited {
     text-align: center;
     color: #444;
     margin-bottom: .2em;
+    display: none;
 }
 
 .bars {
