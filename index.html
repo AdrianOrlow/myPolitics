@@ -25,6 +25,7 @@
 </head>
 
 <body>
+    <script type="application/javascript" src="./db/questions.js"></script>
     <header class="header">
         <div class="header__logo"></div>
         <a href="./index.html">
@@ -35,7 +36,7 @@
     <main class="main">
         <div class="main--container">
             <h2 class="h2--start">Witaj w internetowym quizie myPolitics!</h2>
-            <p class="p--start">Czeka na Ciebie 100 pytań dotyczących różnych zagadnień politycznych, ekonomicznych i kulturalnych. Po odpowiedzeniu
+            <p class="p--start">Czeka na Ciebie <span id="qMax"></span> pytań dotyczących różnych zagadnień politycznych, ekonomicznych i kulturalnych. Po odpowiedzeniu
                 na wszystkie, ukaże Ci się kilka osi, każda skupiająca się na innych ideologiach. Procent odpowiedzi na pasku
                 przy danej ideologii wskazuje na zgodność Twoich odpowiedzi z daną ideologią. Jeśli jakiejś nie znasz, to
                 możesz na nią kliknąć, a pokaże się jej opis.</p>
@@ -48,6 +49,9 @@
             <div onclick="location.href='quiz.html';" class="div--start">Rozpocznij</div>
         </div>
     </main>
+    <script>
+        document.getElementById("qMax").innerHTML = questions.length;
+    </script>
 </body>
 
 </html>

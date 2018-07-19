@@ -244,15 +244,18 @@ a:visited {
     margin-top: .5em;
 }
 
+.bars .bar:last-child {
+    float: right;
+}
+
 .bar {
-    min-width: 1%;
     height: 80%;
     color: #fafafa;
     font-weight: 600;
     text-align: center;
     line-height: 3.25em;
     float: left;
-    box-shadow: 0 0 5px -1px #44444440;
+    box-shadow: 0 0 5px -1px rgba(68, 68, 68, 0.4);
 }
 
 .icon {
@@ -263,7 +266,7 @@ a:visited {
     line-height: 2.5em;
     text-align: center;
     border-radius: .2em;
-    box-shadow: 0 5px 20px -1px #44444440;
+    box-shadow: 0 5px 20px -1px rgba(68, 68, 68, 0.4);
     cursor: pointer;
 }
 
@@ -412,6 +415,7 @@ a:visited {
 .bar--grey {
     background: #f5f5f5f5;
     color: #444;
+    min-width: 0;
 }
 
 .bar--communism {
@@ -482,7 +486,7 @@ a:visited {
     background: #f5f5f5;
     border-radius: 1em;
     overflow: hidden;
-    box-shadow: 0 0px 20px -1px #44444440;
+    box-shadow: 0 0px 20px -1px rgba(68, 68, 68, 0.4);
 }
 
 .modal--wrapper {
@@ -660,11 +664,17 @@ a:visited {
 @media only screen and (max-width: 650px) {
     .main--container {
         width: 90%;
+        border-radius: 0;
     }
     .h1--logo {
         font-size: 3em;
     }
     .h2--title {
         font-size: 1.2em;
+    }
+
+    .modal--info {
+        width: 100%;
+        border-radius: 0;
     }
 }

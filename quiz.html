@@ -135,11 +135,13 @@
             function calc_score(score,max_value) {
                 return (100*(score)/(max_value)).toFixed(0);
             }
-            for(var aK in axes) {
-                if(axes[aK].val > 0) {
+            var labels = ["a1","a2","b1","b2","c1","c2","d1","d2","e1","e2","f1","f2","g1","g2"];
+            for (var i=0;i < labels.length;i+=2) {
+                if(axes[labels[i]].val > 0) {
                     if(url != "")
                         url += "&"
-                    url += aK+"="+calc_score(axes[aK].val, axes[aK].sum)
+                    var axisFullSum = axes[labels[i]].sum + axes[labels[i+1]].sum;
+                    url += labels[i]+"="+calc_score(axes[labels[i]].val,axisFullSum) + "&" + labels[i+1]+"="+calc_score(axes[labels[i+1]].val,axisFullSum);
                 }
             }
             
