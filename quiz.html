@@ -40,15 +40,15 @@
                 <p class="quiz__title" id="qInfo"></p>
                 <div class="quiz__question" id="qText"></div>
                 <div class="quiz__answers">
-                    <div class="quiz__answer" onclick="nextQ(1)">Zdecydowanie się zgadzam</div>
-                    <div class="quiz__answer" onclick="nextQ(2/3)">Zgadzam się</div>
-                    <div class="quiz__answer" onclick="nextQ(0)">Nie mam zdania/nie wiem</div>
-                    <div class="quiz__answer" onclick="nextQ(-2/3)">Nie zgadzam się</div>
-                    <div class="quiz__answer" onclick="nextQ(-1)">Zdecydowanie się nie zgadzam</div>
+                    <button class="quiz__answer" onclick="nextQ(1)">Zdecydowanie się zgadzam</button>
+                    <button class="quiz__answer" onclick="nextQ(2/3)">Zgadzam się</button>
+                    <button class="quiz__answer" onclick="nextQ(0)">Nie mam zdania/nie wiem</button>
+                    <button class="quiz__answer" onclick="nextQ(-2/3)">Nie zgadzam się</button>
+                    <button class="quiz__answer" onclick="nextQ(-1)">Zdecydowanie się nie zgadzam</button>
                 </div>
                 <div class="quiz__actions">
-                    <div class="quiz__action" onclick="prevQ()" id="prevBtn">Poprzednie pytanie</div>
-                    <div class="quiz__action" onclick="again()">Rozpocznij od nowa</div>
+                    <button class="quiz__action" onclick="prevQ()" id="prevBtn">Poprzednie pytanie</button>
+                    <button class="quiz__action" onclick="again()">Rozpocznij od nowa</button>
                 </div>
             </div>
         </div>
@@ -110,8 +110,9 @@
                     }
                     if(q.answer>0) {
                         axes[a.axis].val += q.answer * a.effect;
+                        axes[a.axis].sum += Math.max(a.effect, 0);
                     }
-                    axes[a.axis].sum += Math.max(a.effect, 0);
+                    
                 }
 
                 for(var j=0; j<q.effectsNo.length; j++) {
@@ -126,8 +127,9 @@
 
                     if(q.answer<0) {
                         axes[a.axis].val += Math.abs(q.answer) * a.effect;
+                        axes[a.axis].sum += Math.max(a.effect, 0);
                     }
-                    axes[a.axis].sum += Math.max(a.effect, 0);
+                    
                 }
             }
             url = ""
@@ -136,7 +138,7 @@
             }
             var labels = ["a1","a2","b1","b2","c1","c2","d1","d2","e1","e2","f1","f2","g1","g2"];
             for (var i=0;i < labels.length;i+=2) {
-                if(axes[labels[i]].val > 0) {
+                if(axes[labels[i]].val > 0 || axes[labels[i+1]].val > 0) {
                     if(url != "")
                         url += "&"
                     var axisFullSum = axes[labels[i]].sum + axes[labels[i+1]].sum;

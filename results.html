@@ -34,9 +34,8 @@
         <h2 class="h2--title">Wyniki</h2>
         </div>
     </header>
-    <main class="main">
-        <div id="mainContainer" class="main--container">
-            <div class="axis--label">XXX</div>
+    <main class="main" id="main">
+        <div class="main--container">
             <div class="axis">
                 <div onclick="showInfo('communism')" class="icon icon--communism icon--notfa"></div>
                 <div class="bars">
@@ -46,7 +45,6 @@
                 </div>
                 <div onclick="showInfo('capitalism')" class="icon icon--capitalism"></div>
             </div>
-            <div class="axis--label">XXX</div>
             <div class="axis">
                 <div onclick="showInfo('regulationism')" class="icon icon--regulationism"></div>
                 <div class="bars">
@@ -56,7 +54,6 @@
                 </div>
                 <div onclick="showInfo('laissezfaire')" class="icon icon--laissezfaire"></div>
             </div>
-            <div class="axis--label">XXX</div>
             <div class="axis">
                 <div onclick="showInfo('anarchism')" class="icon icon--anarchism icon--notfa"></div>
                 <div class="bars">
@@ -66,7 +63,6 @@
                 </div>
                 <div onclick="showInfo('authoritarianism')" class="icon icon--authoritarianism"></div>
             </div>
-            <div class="axis--label">XXX</div>
             <div class="axis">
                 <div onclick="showInfo('pacifism')" class="icon icon--pacifism"></div>
                 <div class="bars">
@@ -76,7 +72,6 @@
                 </div>
                 <div onclick="showInfo('militarism')" class="icon icon--militarism"></div>
             </div>
-            <div class="axis--label">XXX</div>
             <div class="axis">
                 <div onclick="showInfo('environmentalism')" class="icon icon--environmentalism"></div>
                 <div class="bars">
@@ -86,7 +81,6 @@
                 </div>
                 <div onclick="showInfo('anthropocentrism')" class="icon icon--anthropocentrism"></div>
             </div>
-            <div class="axis--label">XXX</div>
             <div class="axis">
                 <div onclick="showInfo('progressivism')" class="icon icon--progressivism"></div>
                 <div class="bars">
@@ -96,7 +90,6 @@
                 </div>
                 <div onclick="showInfo('traditionalism')" class="icon icon--traditionalism"></div>
             </div>
-            <div class="axis--label">XXX</div>
             <div class="axis">
                 <div onclick="showInfo('cosmopolitanism')" class="icon icon--cosmopolitanism"></div>
                 <div class="bars">
@@ -105,6 +98,9 @@
                     <div class="bar bar--nationalism" id="g2"></div>
                 </div>
                 <div onclick="showInfo('nationalism')" class="icon icon--nationalism"></div>
+            </div>
+            <div class="ideology--container">
+                <div>Najbliższa ideologia: <a href="http://bit.ly/myPoliticsAI">Pomóż w stworzeniu</a></div>
             </div>
         </div>
     </main>
@@ -115,13 +111,57 @@
             <div id="modalText" class="info--container"></div>
         </div>
     </div>
+    <div id="popupInfo" class="modal--wrapper" onclick="hideInfo(); setCookie()">
+        <div class="modal--info" style="height: 15em;">
+            <div class="info--container" style="margin-top: 0;height: 80%;padding: 5%;">
+                <div class="modal--text">Tutaj pokażą się twoje wyniki oparte na uzyskanych punktach w każdej ideologii.
+                    
+                                        Jeśli jakiejś nie znasz, to możesz kliknąć na jej ikonę, a wyświetli się krótki opis.</div>
+            </div>
+        </div>
+    </div>
 
     <script>
 
-        var values = ["popup","modalTitle","modalIcon","modalText","mainContainer","header"];
+        var values = ["popup","modalTitle","modalIcon","modalText","main","header","popupInfo"];
         values.forEach(value => {
             var value = document.getElementById(value);
         });
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for(var i = 0; i <ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        function checkCookie() {
+            if (getCookie("popupClosed") ==  "true") {
+                main.classList.remove("block--blur");
+                header.classList.remove("block--blur");
+                popupInfo.classList.add("block--none");
+            }
+        }
+
+        main.classList.add("block--blur");
+        header.classList.add("block--blur");
+        checkCookie();
+
+        function setCookie() {
+            var d = new Date();
+            d.setTime(d.getTime() + (60*24*60*60*1000));
+            var expires = "expires="+ d.toUTCString();
+            document.cookie = "popupClosed=true;" + expires + ";path=/";
+        }
     
         function showInfo(choice) {
             for (var i=0;i<ideologiesInfo.length;i++) {
@@ -132,7 +172,7 @@
 
                     modalTitle.classList.add("bar--" + choice);
                     modalIcon.classList.add("icon--" + choice);
-                    mainContainer.classList.add("block--blur");
+                    main.classList.add("block--blur");
                     header.classList.add("block--blur");
 
                     if (modalIcon.classList.contains("icon--anarchism" || "icon--communism")) {
@@ -146,14 +186,18 @@
         }
 
         function hideInfo () {
-            mainContainer.classList.remove("block--blur");
+            main.classList.remove("block--blur");
             header.classList.remove("block--blur");
             modalTitle.classList = "info--name";
             modalIcon.className = "info--symbol";
-            popup.classList.add("block--none");
+            if (!popup.classList.contains("block--none")) {
+                popup.classList.add("block--none");
+            } else {
+                popupInfo.classList.add("block--none");
+            }
         }
 
-        function calcResult (value) {;
+        function calcResult (value) {
             var values = window.location.search.substring(1).split("&");
             for(var i=0;i<values.length;i++){
                 var pair = values[i].split("=")
@@ -177,8 +221,10 @@
                 var diffrence = 100 - opResult;
                 var diffEl = document.getElementById(axes[i].replace(/.$/,"0"));
                 if (diffrence != 0 || isNaN(opResult)) {
-                    if (isNaN(opResult)) {
+                    if (isNaN(opResult) && parseInt(calcResult(axes[i+1])) !== 100) {
                         diffrence = 100;
+                    } else if (calcResult(axes[i+1]) == 100) {
+                        diffrence = 0;
                     }
                     if (diffrence >= 20) {
                         diffEl.innerHTML = diffrence + " %";
@@ -190,6 +236,9 @@
                     var cR = calcResult(axis);
                     if (cR >= 20) {
                         document.getElementById(axis).innerHTML = cR + " %";
+                    }
+                    if (opResult > 100 && j == 0) {
+                        cR -= 1;
                     }
                     document.getElementById(axis).style.width = cR + "%";
                     axis = axes[i+1];

@@ -160,6 +160,14 @@ a:visited {
     display: none;
 }
 
+button {
+    box-sizing: unset;
+    border-width: 0;
+    border-style: unset;
+    border-color: unset;
+    border-image: unset;
+}
+
 /* Header */
 
 .header {
@@ -209,6 +217,46 @@ a:visited {
     border-radius: 1em;
     padding: 5% 5%;
     transition: .2s ease-in-out;
+}
+
+/* Footer */
+
+.footer {
+    position: absolute;
+    width: 50%;
+    max-width: 850px;
+    bottom: 0;
+    margin-top: 2em;
+    height: auto;
+    font-size: 1em;
+    font-weight: 700;
+    left: 50%;
+    transform: translate(-50%, 0);
+    transition: .2s ease-in-out;
+}
+
+.footer--container {
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    margin: 0 auto;
+    width: calc(100% - 2em);
+    background: #f3f3f3;
+    color: #444;
+    padding: 1em;
+}
+
+.footer__github {
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.footer__github--img {
+    height: 1em;
+    width: auto;
 }
 
 /* Results */
@@ -281,6 +329,38 @@ a:visited {
     font-family: Montserrat;
     font-size: 2em;
     line-height: 2em;
+}
+
+/* Ideology Info */
+
+.ideology--container {
+    margin-top: 2em;
+    width: 90%;
+    padding: 5% 5%;
+    border-radius: .5em;
+    background: #e6e6e6;
+}
+
+.ideology--container div {
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+.ideology--container div span {
+    font-weight: 500;
+}
+
+.ideology--container div a {
+    width: auto;
+    padding: .5em;
+    margin-left: .5em;
+    font-size: 1em;
+    background: #d8d8d8;
+    border-radius: .5em;
+    color: #222;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-block;
 }
 
 /* Icons */
@@ -499,6 +579,11 @@ a:visited {
     z-index: 2;
 }
 
+.modal--text {
+    display: block;
+    white-space: pre-line;
+}
+
 .info--name {
     width: 70%;
     height: 15%;
@@ -648,11 +733,27 @@ a:visited {
     .main--container {
         width: 50%; 
     }
+    .footer {
+        width: 60%; 
+    }
 }
 
 @media only screen and (max-width: 1100px) {
     .main--container {
         width: 70%; 
+    }
+    .footer {
+        width: 80%; 
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .ideology--container div {
+        line-height: 1.5em;
+        text-align: center;
+    }
+    .ideology--container div a {
+        margin-left: 0;
     }
 }
 
@@ -660,11 +761,18 @@ a:visited {
     .main--container {
         width: 80%; 
     }
+    .footer {
+        width: 90%; 
+    }
 }
 
 @media only screen and (max-width: 650px) {
     .main--container {
         width: 90%;
+        border-radius: 0;
+    }
+    .footer {
+        width: 100%; 
         border-radius: 0;
     }
     .h1--logo {
