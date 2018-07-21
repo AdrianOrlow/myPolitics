@@ -13,11 +13,8 @@
     <title>myPolitics</title>
 
     <!-- Main CSS -->
-    <link rel="stylesheet" href="dist/css/style.min.css"/>
-    <!-- <link rel="stylesheet" href="src/css/style.css" /> -->
-
-    <!-- Normalize CSS -->
-    <link rel="stylesheet" href="https://yarnpkg.com/en/package/normalize.css"/>
+    <link rel="stylesheet" href="../dist/css/style.min.css"/>
+    <!-- <link rel="stylesheet" href="../src/css/style.css" /> -->
 
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
@@ -28,7 +25,8 @@
 </head>
 
 <body>
-    <script type="application/javascript" src="./db/questions.js"></script>
+    <script type="application/javascript" src="../db/questions.js"></script>
+    <script type="application/javascript" src="../db/axes.js"></script>
     <header class="header">
         <div class="header__logo"></div>
         <a href="./index.html">
@@ -53,6 +51,16 @@
                     <button class="quiz__action" onclick="prevQ()" id="prevBtn">Poprzednie pytanie</button>
                     <button class="quiz__action" onclick="again()">Rozpocznij od nowa</button>
                 </div>
+                <div class="quiz__effects">
+                    <div class="effects--positive">
+                        Efekty na odpowiedź tak:
+                        <span id="effYes"></span>
+                    </div>
+                    <div class="effects--negative">
+                        Efekty na odpowiedź nie:
+                        <span id="effNo"></span>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
@@ -62,15 +70,41 @@
         var qMax = questions.length;
         initQ();
 
-        function initQ () {
-            var qText = questions[qNum].question;
-            document.getElementById("qText").innerHTML = qText;
-            document.getElementById("qInfo").innerHTML = "Pytanie " + (qNum+1) + " z " + qMax;
-            if (qNum == 0) {
-                document.getElementById("prevBtn").style.visibility = "hidden";
-            } else {
-                document.getElementById("prevBtn").style.visibility = "visible";
+        var values = ["qText","qInfo","prevBtn","effYes","effNo"];
+        values.forEach(value => {
+            var value = document.getElementById(value);
+        });
+
+        function getAxis(val, type) {
+        for (var i in axes) {
+            if (axes[i].axis == val) {
+                return axes[i].name;
+                break; //Stop this loop, we found it!
             }
+        }
+        }
+
+        function initQ () {
+            qText.innerHTML = questions[qNum].question;
+            qInfo.innerHTML = "Pytanie " + (qNum+1) + " z " + qMax;
+            if (qNum == 0) {
+                prevBtn.style.visibility = "hidden";
+            } else {
+                prevBtn.style.visibility = "visible";
+            }
+
+            effYes.innerHTML = null;
+            effNo.innerHTML = null;
+
+            var y = questions[qNum].effectsYes;
+            y.forEach(val => {
+                effYes.innerHTML += getAxis(val.axis, 0) + " ";
+            })
+
+            var n = questions[qNum].effectsNo;
+            n.forEach(val => {
+                effNo.innerHTML += getAxis(val.axis, 1) + " ";
+            })
         }
 
         function nextQ (mult) {

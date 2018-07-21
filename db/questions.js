@@ -2104,6 +2104,38 @@ questions = [
         answer: 0
       },
       {
+        question: "Segregacja śmieci jest ważna",
+        effectsYes: [
+          {
+              axis: "e1",
+              effect: 3
+          }
+        ],
+        effectsNo: [
+          {
+              axis: "e2",
+              effect: 3
+          }
+        ],
+        answer: 0
+      },
+      {
+        question: "Istnienie fabryk mięsa zagraża środowisku",
+        effectsYes: [
+          {
+              axis: "e1",
+              effect: 3
+          }
+        ],
+        effectsNo: [
+          {
+              axis: "e2",
+              effect: 3
+          }
+        ],
+        answer: 0
+      },
+      {
         question: "Wszystko w państwie, nic poza państwem, nic przeciw państwu",
         effectsYes: [
           {
