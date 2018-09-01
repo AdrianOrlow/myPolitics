@@ -1,0 +1,196 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="">
+    <meta property="og:url" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="myPolitics">
+    <meta property="og:description" content="Simple political quiz based on 8values">
+    <meta property="og:image" content="">
+    <title>myPolitics</title>
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="../dist/css/style.min.css"/>
+    <!-- <link rel="stylesheet" href="../src/css/style.css" /> -->
+
+    <!-- Normalize CSS -->
+    <link rel="stylesheet" href="../dist/css/normalize.min.css"/>
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+        crossorigin="anonymous">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700,900">
+</head>
+
+<body>
+    <script type="application/javascript" src="../db/questions.js"></script>
+    <script type="application/javascript" src="../db/axes.js"></script>
+    <header class="header">
+        <div class="header__logo"></div>
+        <a href="./index.html">
+            <h1 class="h1--logo">myPolitics</h1>
+        </a>
+        <h2 class="h2--title">Quiz</h2>
+        </div>
+    </header>
+    <main class="main">
+        <div class="main--container">
+            <div class="quiz">
+                <p class="quiz__title" id="qInfo"></p>
+                <div class="quiz__question" id="qText"></div>
+                <div class="quiz__answers">
+                    <button class="quiz__answer" onclick="nextQ(1)">Zdecydowanie się zgadzam</button>
+                    <button class="quiz__answer" onclick="nextQ(2/3)">Zgadzam się</button>
+                    <button class="quiz__answer" onclick="nextQ(0)">Nie mam zdania/nie wiem</button>
+                    <button class="quiz__answer" onclick="nextQ(-2/3)">Nie zgadzam się</button>
+                    <button class="quiz__answer" onclick="nextQ(-1)">Zdecydowanie się nie zgadzam</button>
+                </div>
+                <div class="quiz__actions">
+                    <button class="quiz__action" onclick="prevQ()" id="prevBtn">Poprzednie pytanie</button>
+                    <button class="quiz__action" onclick="again()">Rozpocznij od nowa</button>
+                </div>
+                <div class="quiz__effects">
+                    <div class="effects--positive">
+                        Efekty na odpowiedź tak:
+                        <span id="effYes"></span>
+                    </div>
+                    <div class="effects--negative">
+                        Efekty na odpowiedź nie:
+                        <span id="effNo"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        var qNum = 0;
+        var qMax = questions.length;
+        initQ();
+
+        var values = ["qText","qInfo","prevBtn","effYes","effNo"];
+        values.forEach(value => {
+            var value = document.getElementById(value);
+        });
+
+        function getAxis(val, type) {
+        for (var i in axes) {
+            if (axes[i].axis == val) {
+                return axes[i].name;
+                break; //Stop this loop, we found it!
+            }
+        }
+        }
+
+        function initQ () {
+            qText.innerHTML = questions[qNum].question;
+            qInfo.innerHTML = "Pytanie " + (qNum+1) + " z " + qMax;
+            if (qNum == 0) {
+                prevBtn.style.visibility = "hidden";
+            } else {
+                prevBtn.style.visibility = "visible";
+            }
+
+            effYes.innerHTML = null;
+            effNo.innerHTML = null;
+
+            var y = questions[qNum].effectsYes;
+            y.forEach(val => {
+                effYes.innerHTML += getAxis(val.axis, 0) + " ";
+            })
+
+            var n = questions[qNum].effectsNo;
+            n.forEach(val => {
+                effNo.innerHTML += getAxis(val.axis, 1) + " ";
+            })
+        }
+
+        function nextQ (mult) {
+            questions[qNum].answer = mult;
+            qNum++;
+            
+            if (qNum<questions.length){
+                initQ();
+            } else {
+                results();
+            }
+        }
+
+        function prevQ () {
+            if (qNum == 0) {
+                return;
+            }
+            qNum--;
+            initQ();
+        }
+
+        function again () {
+            qNum = 0;
+            initQ();
+        }
+
+        function results () {
+            var axes = {};
+            for (var i=0;i<questions.length;i++) {
+                q = questions[i];
+
+                for (var j=0; j<q.effectsYes.length; j++) {
+                    var a = q.effectsYes[j];
+
+                    if(!(a.axis in axes)) {
+                        axes[a.axis] = {
+                            val: 0,
+                            sum: 0
+                        }
+                    }
+                    if(q.answer>0) {
+                        axes[a.axis].val += q.answer * a.effect;
+                        axes[a.axis].sum += Math.max(a.effect, 0);
+                    }
+                    
+                }
+
+                for(var j=0; j<q.effectsNo.length; j++) {
+                    var a = q.effectsNo[j];
+                    
+                    if(!(a.axis in axes)) {
+                        axes[a.axis] = {
+                            val: 0,
+                            sum: 0
+                        }
+                    }
+
+                    if(q.answer<0) {
+                        axes[a.axis].val += Math.abs(q.answer) * a.effect;
+                        axes[a.axis].sum += Math.max(a.effect, 0);
+                    }
+                    
+                }
+            }
+            url = ""
+            function calc_score(score,max_value) {
+                return (100*(score)/(max_value)).toFixed(0);
+            }
+            var labels = ["a1","a2","b1","b2","c1","c2","d1","d2","e1","e2","f1","f2","g1","g2"];
+            for (var i=0;i < labels.length;i+=2) {
+                if(axes[labels[i]].val > 0 || axes[labels[i+1]].val > 0) {
+                    if(url != "")
+                        url += "&"
+                    var axisFullSum = axes[labels[i]].sum + axes[labels[i+1]].sum;
+                    url += labels[i]+"="+calc_score(axes[labels[i]].val,axisFullSum) + "&" + labels[i+1]+"="+calc_score(axes[labels[i+1]].val,axisFullSum);
+                }
+            }
+            
+            url = "results.html?"+url
+            
+            location.href = url;
+        }
+    </script>
+</body>
+
+</html>

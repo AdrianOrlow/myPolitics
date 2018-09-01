@@ -420,11 +420,19 @@ questions = [
         answer: 0,
         effectsYes: [
             {
+                axis: "c2",
+                effect: 3
+            },
+            {
                 axis: "f2",
                 effect: 3
             }
         ],
         effectsNo: [
+            {
+                axis: "c1",
+                effect: 3
+            },
             {
                 axis: "f1",
                 effect: 3

@@ -12,12 +12,26 @@
     <meta property="og:image" content="">
     <title>myPolitics</title>
 
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-51375799-4"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-51375799-4');
+    </script>
+
+
     <!-- Main CSS -->
-    <link rel="stylesheet" href="../dist/css/style.min.css"/>
-    <!-- <link rel="stylesheet" href="../src/css/style.css" /> -->
+    <link rel="stylesheet" href="dist/css/style.min.css" />
+    <!-- <link rel="stylesheet" href="src/css/style.css" /> -->
 
     <!-- Normalize CSS -->
-    <link rel="stylesheet" href="../dist/css/normalize.min.css"/>
+    <link rel="stylesheet" href="dist/css/normalize.min.css" />
 
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
@@ -28,7 +42,7 @@
 </head>
 
 <body>
-    <script type="application/javascript" src="../db/questions.js"></script>
+    <script type="application/javascript" src="./db/questions.js"></script>
     <header class="header">
         <div class="header__logo"></div>
         <a href="./index.html">
@@ -39,21 +53,28 @@
     <main class="main">
         <div class="main--container">
             <h2 class="h2--start">Witaj w internetowym quizie myPolitics!</h2>
-            <p class="p--start">Czeka na Ciebie <span id="qMax"></span> pytań dotyczących różnych zagadnień politycznych, ekonomicznych i kulturalnych. Po odpowiedzeniu
+            <p class="p--start">Czeka na Ciebie
+                <span id="qMax"></span> pytań dotyczących różnych zagadnień politycznych, ekonomicznych i kulturalnych. Po odpowiedzeniu
                 na wszystkie, ukaże Ci się kilka osi, każda skupiająca się na innych ideologiach. Procent odpowiedzi na pasku
                 przy danej ideologii wskazuje na zgodność Twoich odpowiedzi z daną ideologią. Jeśli jakiejś nie znasz, to
                 możesz na nią kliknąć, a pokaże się jej opis.</p>
 
-            <p class="p--start">Ten quiz polityczny jest inspirowany innymi testami pokroju <a href="https://8values.github.io">8values</a>, czy <a href="http://politiscales.net">PolitiScales</a>.
+            <p class="p--start">Ten quiz polityczny jest inspirowany innymi testami pokroju
+                <a href="https://8values.github.io">8values</a>, czy
+                <a href="http://politiscales.net">PolitiScales</a>.
             </p>
 
             <div onclick="location.href='quiz.html';" class="div--start">Rozpocznij</div>
         </div>
         <div class="footer">
             <div class="footer--container">
-                <div>Made with <span style="font-family: 'Font Awesome 5 Free';"></span> by <a href="https://github.com/TheAdrik">Adrian Orłów</a></div>
+                <div>Made with
+                    <span style="font-family: 'Font Awesome 5 Free';"></span> by
+                    <a href="https://github.com/TheAdrik">Adrian Orłów</a>
+                </div>
                 <a href="https://github.com/TheAdrik/myPolitics" class="footer__github">
-                <img src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Logo.png" class="footer__github--img"></a>
+                    <img src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Logo.png" class="footer__github--img">
+                </a>
             </div>
         </div>
     </main>
