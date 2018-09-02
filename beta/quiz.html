@@ -10,7 +10,7 @@
     <meta property="og:title" content="myPolitics - Quiz">
     <meta property="og:description" content="Prosty test polityczny pokazujący twoje poglądy na siedmiu osiach.">
     <meta property="og:image" content="https://mypolitics.orlow.me/img/thumbnails/quiz.png">
-    <title>myPolitics - Quiz</title>
+    <title>myPolitics BETA</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="https://mypolitics.orlow.me/img/ico/favicon.ico">
@@ -29,11 +29,11 @@
     </script>
 
     <!-- Main CSS -->
-    <link rel="stylesheet" href="../dist/css/style.min.css"/>
-    <!-- <link rel="stylesheet" href="../src/css/style.css" /> -->
+    <!-- <link rel="stylesheet" href="../dist/css/style.min.css" /> -->
+    <link rel="stylesheet" href="../src/css/style.css" />
 
     <!-- Normalize CSS -->
-    <link rel="stylesheet" href="../dist/css/normalize.min.css"/>
+    <link rel="stylesheet" href="../dist/css/normalize.min.css" />
 
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
@@ -51,7 +51,7 @@
         <a href="./index.html">
             <h1 class="h1--logo">myPolitics</h1>
         </a>
-        <h2 class="h2--title">Quiz</h2>
+        <h2 class="h2--title">BETA - Quiz</h2>
         </div>
     </header>
     <main class="main">
@@ -70,7 +70,7 @@
                     <button class="quiz__action" onclick="prevQ()" id="prevBtn">Poprzednie pytanie</button>
                     <button class="quiz__action" onclick="again()">Rozpocznij od nowa</button>
                 </div>
-                <div class="quiz__effects">
+                <div class="quiz__effects block--none" id="qEffects">
                     <div class="effects--positive">
                         Efekty na odpowiedź tak:
                         <span id="effYes"></span>
@@ -83,29 +83,30 @@
             </div>
         </div>
     </main>
-    
+
+    <script src="../src/js/cookies.js"></script>
     <script>
         var qNum = 0;
         var qMax = questions.length;
         initQ();
 
-        var values = ["qText","qInfo","prevBtn","effYes","effNo"];
+        var values = ["qText", "qInfo", "prevBtn", "effYes", "effNo", "qEffects"];
         values.forEach(value => {
             var value = document.getElementById(value);
         });
 
         function getAxis(val, type) {
-        for (var i in axes) {
-            if (axes[i].axis == val) {
-                return axes[i].name;
-                break; //Stop this loop, we found it!
+            for (var i in axes) {
+                if (axes[i].axis == val) {
+                    return axes[i].name;
+                    break; //Stop this loop, we found it!
+                }
             }
         }
-        }
 
-        function initQ () {
+        function initQ() {
             qText.innerHTML = questions[qNum].question;
-            qInfo.innerHTML = "Pytanie " + (qNum+1) + " z " + qMax;
+            qInfo.innerHTML = "Pytanie " + (qNum + 1) + " z " + qMax;
             if (qNum == 0) {
                 prevBtn.style.visibility = "hidden";
             } else {
@@ -126,18 +127,18 @@
             })
         }
 
-        function nextQ (mult) {
+        function nextQ(mult) {
             questions[qNum].answer = mult;
             qNum++;
-            
-            if (qNum<questions.length){
+
+            if (qNum < questions.length) {
                 initQ();
             } else {
                 results();
             }
         }
 
-        function prevQ () {
+        function prevQ() {
             if (qNum == 0) {
                 return;
             }
@@ -145,66 +146,103 @@
             initQ();
         }
 
-        function again () {
+        function again() {
             qNum = 0;
             initQ();
         }
 
-        function results () {
+        function results() {
             var axes = {};
-            for (var i=0;i<questions.length;i++) {
+            for (var i = 0; i < questions.length; i++) {
                 q = questions[i];
 
-                for (var j=0; j<q.effectsYes.length; j++) {
+                for (var j = 0; j < q.effectsYes.length; j++) {
                     var a = q.effectsYes[j];
 
-                    if(!(a.axis in axes)) {
+                    if (!(a.axis in axes)) {
                         axes[a.axis] = {
                             val: 0,
                             sum: 0
                         }
                     }
-                    if(q.answer>0) {
+                    if (q.answer > 0) {
                         axes[a.axis].val += q.answer * a.effect;
                         axes[a.axis].sum += Math.max(a.effect, 0);
                     }
-                    
+
                 }
 
-                for(var j=0; j<q.effectsNo.length; j++) {
+                for (var j = 0; j < q.effectsNo.length; j++) {
                     var a = q.effectsNo[j];
-                    
-                    if(!(a.axis in axes)) {
+
+                    if (!(a.axis in axes)) {
                         axes[a.axis] = {
                             val: 0,
                             sum: 0
                         }
                     }
 
-                    if(q.answer<0) {
+                    if (q.answer < 0) {
                         axes[a.axis].val += Math.abs(q.answer) * a.effect;
                         axes[a.axis].sum += Math.max(a.effect, 0);
                     }
-                    
+
                 }
             }
             url = ""
-            function calc_score(score,max_value) {
-                return (100*(score)/(max_value)).toFixed(0);
+
+            function calc_score(score, max_value) {
+                return (100 * (score) / (max_value)).toFixed(0);
             }
-            var labels = ["a1","a2","b1","b2","c1","c2","d1","d2","e1","e2","f1","f2","g1","g2"];
-            for (var i=0;i < labels.length;i+=2) {
-                if(axes[labels[i]].val > 0 || axes[labels[i+1]].val > 0) {
-                    if(url != "")
+            var labels = ["a1", "a2", "b1", "b2", "c1", "c2", "d1", "d2", "e1", "e2", "f1", "f2", "g1", "g2"];
+            for (var i = 0; i < labels.length; i += 2) {
+                if (axes[labels[i]].val > 0 || axes[labels[i + 1]].val > 0) {
+                    if (url != "")
                         url += "&"
-                    var axisFullSum = axes[labels[i]].sum + axes[labels[i+1]].sum;
-                    url += labels[i]+"="+calc_score(axes[labels[i]].val,axisFullSum) + "&" + labels[i+1]+"="+calc_score(axes[labels[i+1]].val,axisFullSum);
+                    var axisFullSum = axes[labels[i]].sum + axes[labels[i + 1]].sum;
+                    url += labels[i] + "=" + calc_score(axes[labels[i]].val, axisFullSum) + "&" + labels[i + 1] + "=" +
+                        calc_score(axes[labels[i + 1]].val, axisFullSum);
                 }
             }
-            
-            url = "results.html?"+url
-            
+
+            url = "results.html?" + url
+
             location.href = url;
+        }
+
+        if (JSON.parse(getCookie("showEffects")) == true) {
+            qEffects.classList.remove('block--none');
+        }
+
+        function getRandomAnswer() {
+            var byteArray = new Uint8Array(1);
+            window.crypto.getRandomValues(byteArray);
+
+            if (byteArray[0] >= 255)
+                return getRandomAnswer();
+            return (byteArray[0] % 5);
+        }
+
+        if (getCookie("doRandom") == 'true') {
+            for (i = 0; i < qMax; i++) {
+                switch (getRandomAnswer(0, 4)) {
+                    case 0:
+                        nextQ(1)
+                        break;
+                    case 1:
+                        nextQ(2 / 3)
+                        break;
+                    case 2:
+                        nextQ(0)
+                        break;
+                    case 3:
+                        nextQ(-2 / 3)
+                        break;
+                    case 4:
+                        nextQ(-1)
+                        break;
+                }
+            }
         }
     </script>
 </body>

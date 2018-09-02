@@ -4,20 +4,36 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="">
-    <meta property="og:url" content="">
+    <meta name="theme-color" content="#fafafa">
+    <meta property="og:url" content="https://mypolitics.orlow.me/results.html">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="myPolitics">
-    <meta property="og:description" content="Simple political quiz based on 8values">
-    <meta property="og:image" content="">
-    <title>myPolitics</title>
+    <meta property="og:title" content="myPolitics - wyniki">
+    <meta property="og:description" content="Prosty test polityczny pokazujący twoje poglądy na siedmiu osiach.">
+    <meta property="og:image" content="https://mypolitics.orlow.me/img/thumbnails/results.png">
+    <title>myPolitics - wyniki</title>
+
+    <!-- Favicon -->
+	<link rel="shortcut icon" type="image/x-icon" href="https://mypolitics.orlow.me/img/ico/favicon.ico">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-51375799-4"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-51375799-5');
+    </script>
 
     <!-- Main CSS -->
-    <link rel="stylesheet" href="dist/css/style.min.css"/>
+    <link rel="stylesheet" href="dist/css/style.min.css" />
     <!-- <link rel="stylesheet" href="src/css/style.css" /> -->
 
     <!-- Normalize CSS -->
-    <link rel="stylesheet" href="dist/css/normalize.min.css"/>
+    <link rel="stylesheet" href="dist/css/normalize.min.css" />
 
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
@@ -104,7 +120,9 @@
             </div>
 
             <div class="ideology--container">
-                <div>Najbliższa ideologia: <a href="http://bit.ly/myPoliticsAI">Pomóż w stworzeniu</a></div>
+                <div>Najbliższa ideologia:
+                    <a href="http://bit.ly/myPoliticsAI">Pomóż w stworzeniu</a>
+                </div>
             </div>
 
             <div class="help--container">
@@ -116,7 +134,7 @@
         </div>
     </main>
     <div id="popup" class="modal--wrapper block--none" onclick="hideInfo()">
-        <div class="modal--info" >
+        <div class="modal--info">
             <div id="modalTitle" class="info--name"></div>
             <div id="modalIcon" class="info--symbol"></div>
             <div id="modalText" class="info--container"></div>
@@ -125,16 +143,14 @@
     <div id="popupInfo" class="modal--wrapper" onclick="hideInfo(); setCookie()">
         <div class="modal--info" style="height: 15em;">
             <div class="info--container" style="margin-top: 0;height: 80%;padding: 5%;">
-                <div class="modal--text">Tutaj pokażą się twoje wyniki oparte na uzyskanych punktach w każdej ideologii.
-                    
-                                        Jeśli jakiejś nie znasz, to możesz kliknąć na jej ikonę, a wyświetli się krótki opis.</div>
+                <div class="modal--text">Tutaj pokażą się twoje wyniki oparte na uzyskanych punktach w każdej ideologii. Jeśli jakiejś nie znasz,
+                    to możesz kliknąć na jej ikonę, a wyświetli się krótki opis.</div>
             </div>
         </div>
     </div>
 
     <script>
-
-        var values = ["popup","modalTitle","modalIcon","modalText","main","header","popupInfo"];
+        var values = ["popup", "modalTitle", "modalIcon", "modalText", "main", "header", "popupInfo"];
         values.forEach(value => {
             var value = document.getElementById(value);
         });
@@ -143,7 +159,7 @@
             var name = cname + "=";
             var decodedCookie = decodeURIComponent(document.cookie);
             var ca = decodedCookie.split(';');
-            for(var i = 0; i <ca.length; i++) {
+            for (var i = 0; i < ca.length; i++) {
                 var c = ca[i];
                 while (c.charAt(0) == ' ') {
                     c = c.substring(1);
@@ -156,7 +172,7 @@
         }
 
         function checkCookie() {
-            if (getCookie("popupClosed") ==  "true") {
+            if (getCookie("popupClosed") == "true") {
                 main.classList.remove("block--blur");
                 header.classList.remove("block--blur");
                 popupInfo.classList.add("block--none");
@@ -169,13 +185,13 @@
 
         function setCookie() {
             var d = new Date();
-            d.setTime(d.getTime() + (60*24*60*60*1000));
-            var expires = "expires="+ d.toUTCString();
+            d.setTime(d.getTime() + (60 * 24 * 60 * 60 * 1000));
+            var expires = "expires=" + d.toUTCString();
             document.cookie = "popupClosed=true;" + expires + ";path=/";
         }
-    
+
         function showInfo(choice) {
-            for (var i=0;i<ideologiesInfo.length;i++) {
+            for (var i = 0; i < ideologiesInfo.length; i++) {
                 var ideology = ideologiesInfo[i];
                 if (ideology.title == choice) {
                     modalTitle.innerHTML = ideology.name;
@@ -196,7 +212,7 @@
             }
         }
 
-        function hideInfo () {
+        function hideInfo() {
             main.classList.remove("block--blur");
             header.classList.remove("block--blur");
             modalTitle.classList = "info--name";
@@ -208,12 +224,12 @@
             }
         }
 
-        function calcResult (value) {
+        function calcResult(value) {
             var values = window.location.search.substring(1).split("&");
-            for(var i=0;i<values.length;i++){
+            for (var i = 0; i < values.length; i++) {
                 var pair = values[i].split("=")
-                if(pair[0] == value){
-                    if(pair[1] == "NaN"){
+                if (pair[0] == value) {
+                    if (pair[1] == "NaN") {
                         return;
                     } else {
                         return pair[1];
@@ -223,18 +239,18 @@
             return;
         }
 
-        function showResults () {
-            var axes = ["a1","a2","b1","b2","c1","c2","d1","d2","e1","e2","f1","f2","g1","g2"];
-            
-            for (var i=0;i < axes.length;i+=2) {
+        function showResults() {
+            var axes = ["a1", "a2", "b1", "b2", "c1", "c2", "d1", "d2", "e1", "e2", "f1", "f2", "g1", "g2"];
+
+            for (var i = 0; i < axes.length; i += 2) {
                 var axis = axes[i];
-                var opResult = parseInt(calcResult(axes[i])) + parseInt(calcResult(axes[i+1]));
+                var opResult = parseInt(calcResult(axes[i])) + parseInt(calcResult(axes[i + 1]));
                 var diffrence = 100 - opResult;
-                var diffEl = document.getElementById(axes[i].replace(/.$/,"0"));
+                var diffEl = document.getElementById(axes[i].replace(/.$/, "0"));
                 if (diffrence != 0 || isNaN(opResult)) {
-                    if (isNaN(opResult) && parseInt(calcResult(axes[i+1])) !== 100) {
+                    if (isNaN(opResult) && parseInt(calcResult(axes[i + 1])) !== 100) {
                         diffrence = 100;
-                    } else if (calcResult(axes[i+1]) == 100) {
+                    } else if (calcResult(axes[i + 1]) == 100) {
                         diffrence = 0;
                     }
                     if (diffrence >= 20) {
@@ -243,7 +259,7 @@
                     diffEl.style.width = diffrence + "%";
                 }
 
-                for (var j=0;j<=2;j++) {
+                for (var j = 0; j <= 2; j++) {
                     var cR = calcResult(axis);
                     if (cR >= 20) {
                         document.getElementById(axis).innerHTML = cR + " %";
@@ -252,13 +268,12 @@
                         cR -= 1;
                     }
                     document.getElementById(axis).style.width = cR + "%";
-                    axis = axes[i+1];
+                    axis = axes[i + 1];
                 }
             }
         }
 
-        showResults ();
-    
+        showResults();
     </script>
 </body>
 
