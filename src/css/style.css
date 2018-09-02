@@ -610,7 +610,8 @@ input[type="checkbox"] {
     position: absolute;
     bottom: 0;
     padding: 1.1em;
-    background: #ececec;
+    background: #1abc9c;
+    color: #fafafa!important;
     border-top-left-radius: 1.1em;
     font-weight: 600;
     font-size: 1.1em;
@@ -618,7 +619,7 @@ input[type="checkbox"] {
 }
 
 .a--start:hover {
-    background: #e6e6e6;
+    background: #16a085;
 }
 
 .menu--start {
