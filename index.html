@@ -46,19 +46,18 @@
 
 <body>
     <script type="application/javascript" src="./db/questions.js"></script>
-    <header class="header">
+    <header class="header" id="header">
         <div class="header__logo"></div>
         <a href="./index.html">
             <h1 class="h1--logo">myPolitics</h1>
         </a>
         </div>
     </header>
-    <main class="main">
+    <main class="main" id="main">
         <div class="main--container">
             <h2 class="h2--start">Witaj w internetowym quizie myPolitics!</h2>
-            <p class="p--start">Czeka na Ciebie
-                <span id="qMax"></span> pytań dotyczących różnych zagadnień politycznych, ekonomicznych i kulturalnych.
-                Po odpowiedzeniu
+            <p class="p--start">Czeka na Ciebie <span id="qMax"></span> pytań dotyczących różnych zagadnień
+                politycznych, ekonomicznych i kulturalnych. Po odpowiedzeniu
                 na wszystkie, ukaże Ci się kilka osi, każda skupiająca się na innych ideologiach. Procent odpowiedzi na
                 pasku
                 przy danej ideologii wskazuje na zgodność Twoich odpowiedzi z daną ideologią. Jeśli jakiejś nie znasz,
@@ -67,29 +66,66 @@
             </p>
             <p class="p--start">Wykonanie testu nie powinno zająć Ci więcej niż <span style="font-weight: 600;">10
                     minut.</span></p>
-            <p class="p--start">Ten quiz polityczny jest inspirowany innymi testami pokroju
-                <a href="https://8values.github.io">8values</a>, czy
-                <a href="http://politiscales.net">PolitiScales</a>.
+            <p class="p--start">Ten quiz polityczny jest inspirowany innymi testami pokroju <a href="https://8values.github.io">8values</a>,
+                czy <a href="http://politiscales.net">PolitiScales</a>.
             </p>
-
-            <div onclick="location.href='quiz.html';" class="div--start">Rozpocznij</div>
-            <a class="a--start" href="./beta/">BETA</a>
+            <div class="menu--start">
+                <div onclick="location.href='quiz.html';" class="div--start" style="border-top-right-radius: 0;border-bottom-right-radius: 0;display: inline-block;height: 100%;">Rozpocznij</div>
+                <div class="options--start" onclick="showOptions();"></div>
+            </div>
+            <a class="a--start" href="https://mypolitics.orlow.me/beta">BETA</a>
         </div>
         <div class="footer">
             <div class="footer--container">
-                <div>Made with
-                    <span style="font-family: 'Font Awesome 5 Free';"></span> by
-                    <a href="https://github.com/TheAdrik">Adrian Orłów</a>
-                </div>
+                <div>Made with <span style="font-family: 'Font Awesome 5 Free';"></span> by <a href="https://github.com/TheAdrik">Adrian
+                        Orłów</a></div>
                 <a href="https://github.com/TheAdrik/myPolitics" class="footer__github">
-                    <img src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Logo.png" class="footer__github--img">
-                </a>
+                    <img src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Logo.png" class="footer__github--img"></a>
             </div>
         </div>
     </main>
 
+    <div class="modal--options block--none" id="modalOptions">
+        <div class="options__container">
+            <p class="options__title">Opcje</p>
+            <div class="options__label">Pokaż efekty pytań</div>
+            <div class="options__checkbox--container">
+                <input class="options__checkbox" type="checkbox" id="effectsCheckbox">
+                <label class="options__checkbox--label" for="effectsCheckbox"></label>
+            </div>
+            <div class="options__label">Losowe odpowiedzi</div>
+            <div class="options__checkbox--container">
+                <input class="options__checkbox" type="checkbox" id="randomCheckbox">
+                <label class="options__checkbox--label" for="randomCheckbox"></label>
+            </div>
+            <div class="options__btn" onclick="saveOptions();">Zapisz</div>
+        </div>
+    </div>
+
+    <script src="./src/js/cookies.js"></script>
     <script>
+        var values = ["modalOptions", "main", "header", "effectsCheckbox", "randomCheckbox"];
+        values.forEach(value => {
+            var value = document.getElementById(value);
+        });
+
         document.getElementById("qMax").innerHTML = questions.length;
+
+        function showOptions() {
+            main.classList.add("block--blur");
+            header.classList.add("block--blur");
+            modalOptions.classList.remove("block--none");
+            effectsCheckbox.checked = JSON.parse(getCookie("showEffects"));
+            randomCheckbox.checked = JSON.parse(getCookie("doRandom"));
+        }
+
+        function saveOptions() {
+            setCookie('showEffects', effectsCheckbox.checked)
+            setCookie('doRandom', randomCheckbox.checked)
+            main.classList.remove("block--blur");
+            header.classList.remove("block--blur");
+            modalOptions.classList.add("block--none");
+        }
     </script>
 </body>
 

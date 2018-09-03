@@ -45,6 +45,7 @@
 
 <body>
     <script type="application/javascript" src="./db/ideologiesInfo.js"></script>
+    <script type="application/javascript" src="./db/ideologies.js"></script>
     <header id="header" class="header">
         <div class="header__logo"></div>
         <a href="./index.html">
@@ -118,18 +119,8 @@
                 </div>
                 <div onclick="showInfo('nationalism')" class="icon icon--nationalism"></div>
             </div>
-
             <div class="ideology--container">
-                <div>Najbliższa ideologia:
-                    <a href="http://bit.ly/myPoliticsAI">Pomóż w stworzeniu</a>
-                </div>
-            </div>
-
-            <div class="help--container">
-                <a class="help__btn" href="http://bit.ly/myPoliticsQ">Prześlij propozycje pytań</a>
-            </div>
-            <div class="help--container">
-                <a class="help__btn" href="http://bit.ly/myPoliticsNF">Zaproponuj nowe funkcje</a>
+                <div>Najbliższa ideologia: <span id="ideoText"></span></div>
             </div>
         </div>
     </main>
@@ -140,36 +131,23 @@
             <div id="modalText" class="info--container"></div>
         </div>
     </div>
-    <div id="popupInfo" class="modal--wrapper" onclick="hideInfo(); setCookie()">
+    <div id="popupInfo" class="modal--wrapper" onclick="hideInfo(); setCookie('popupClosed','true')">
         <div class="modal--info" style="height: 15em;">
             <div class="info--container" style="margin-top: 0;height: 80%;padding: 5%;">
-                <div class="modal--text">Tutaj pokażą się twoje wyniki oparte na uzyskanych punktach w każdej ideologii. Jeśli jakiejś nie znasz,
-                    to możesz kliknąć na jej ikonę, a wyświetli się krótki opis.</div>
+                <div class="modal--text">Tutaj pokażą się twoje wyniki oparte na uzyskanych punktach w każdej
+                    ideologii.
+
+                    Jeśli jakiejś nie znasz, to możesz kliknąć na jej ikonę, a wyświetli się krótki opis.</div>
             </div>
         </div>
     </div>
 
+    <script src="./src/js/cookies.js"></script>
     <script>
-        var values = ["popup", "modalTitle", "modalIcon", "modalText", "main", "header", "popupInfo"];
+        var values = ["popup", "modalTitle", "modalIcon", "modalText", "main", "header", "popupInfo", "ideoText"];
         values.forEach(value => {
             var value = document.getElementById(value);
         });
-
-        function getCookie(cname) {
-            var name = cname + "=";
-            var decodedCookie = decodeURIComponent(document.cookie);
-            var ca = decodedCookie.split(';');
-            for (var i = 0; i < ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0) == ' ') {
-                    c = c.substring(1);
-                }
-                if (c.indexOf(name) == 0) {
-                    return c.substring(name.length, c.length);
-                }
-            }
-            return "";
-        }
 
         function checkCookie() {
             if (getCookie("popupClosed") == "true") {
@@ -182,13 +160,6 @@
         main.classList.add("block--blur");
         header.classList.add("block--blur");
         checkCookie();
-
-        function setCookie() {
-            var d = new Date();
-            d.setTime(d.getTime() + (60 * 24 * 60 * 60 * 1000));
-            var expires = "expires=" + d.toUTCString();
-            document.cookie = "popupClosed=true;" + expires + ";path=/";
-        }
 
         function showInfo(choice) {
             for (var i = 0; i < ideologiesInfo.length; i++) {
@@ -273,7 +244,25 @@
             }
         }
 
+        function findIdeology() {
+            ideology = "";
+            ideodist = Infinity;
+            for (var i = 0; i < ideologies.length; i++) {
+                dist = 0;
+                dist += Math.pow(Math.abs(ideologies[i].effects.b1 - calcResult('b1')), 2);
+                dist += Math.pow(Math.abs(ideologies[i].effects.c1 - calcResult('c1')), 2);
+                dist += Math.pow(Math.abs(ideologies[i].effects.d1 - calcResult('d1')), 1.73856063);
+                dist += Math.pow(Math.abs(ideologies[i].effects.f1 - calcResult('f1')), 1.73856063);
+                if (dist < ideodist) {
+                    ideology = ideologies[i].name;
+                    ideodist = dist;
+                }
+            }
+            ideoText.innerHTML = ideology;
+        }
+
         showResults();
+        findIdeology();
     </script>
 </body>
 
