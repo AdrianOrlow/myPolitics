@@ -54,5 +54,17 @@ axes = [
     {
         axis: 'g2',
         name: 'Nacjonalizm+'
+    },
+    {
+        axis: 'mo',
+        name: '+Cecha: monarchizm'
+    },
+    {
+        axis: 'an',
+        name: '+Cecha: anarchizm'
+    },
+    {
+        axis: 're',
+        name: '+Cecha: religijny'
     }
 ]

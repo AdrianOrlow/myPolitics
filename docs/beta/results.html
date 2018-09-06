@@ -122,12 +122,11 @@
             <div class="ideology--container">
                 <div>Najbliższa ideologia: <span id="ideoText"></span></div>
             </div>
-            <div class="compass--container">Tu będzie kompas</div>
-            <div class="more--container">
+            <div class="compass--container"><img src="../img/svg/chart.svg">
+                <div id="cPointer" class="compass__pointer"></div>
+            </div>
+            <div class="more--container" id="mContainer">
                 <div class="more__title">Cechy</div>
-                <div class="more__el">cecha1</div>
-                <div class="more__el">cecha2</div>
-                <div class="more__el">cecha3</div>
             </div>
         </div>
     </main>
@@ -151,7 +150,9 @@
 
     <script src="../src/js/cookies.js"></script>
     <script>
-        var values = ["popup", "modalTitle", "modalIcon", "modalText", "main", "header", "popupInfo", "ideoText"];
+        var values = ["popup", "modalTitle", "modalIcon", "modalText", "main", "header", "popupInfo", "ideoText",
+            "cPointer", "mContainer"
+        ];
         values.forEach(value => {
             var value = document.getElementById(value);
         });
@@ -180,11 +181,12 @@
                     main.classList.add("block--blur");
                     header.classList.add("block--blur");
 
-                    if (modalIcon.classList.contains("icon--anarchism" || "icon--communism")) {
+                    if (modalIcon.classList.contains("icon--anarchism" || "icon--communism" || "icon--an")) {
                         modalIcon.classList.add("icon--notfa");
                     }
 
                     popup.classList.remove("block--none");
+                    window.scrollTo(0, 0);
                     return;
                 }
             }
@@ -254,9 +256,21 @@
         function findIdeology() {
             ideology = "";
             ideodist = Infinity;
+            var econResultsAxes = ["a1", "a2", "b1", "b2"];
+            econResultsAxes.forEach(el => {
+                var el = parseInt(calcResult(el));
+            });
             for (var i = 0; i < ideologies.length; i++) {
                 dist = 0;
-                dist += Math.pow(Math.abs(ideologies[i].effects.b1 - calcResult('b1')), 2);
+                dist += Math.pow(Math.abs(
+                    ideologies[i].effects.b1 -
+                    ((
+                        (parseInt(calcResult("a1")) + ((100 - (parseInt(calcResult("a2")) + parseInt(
+                            calcResult("a1")))) / 3)) +
+                        (parseInt(calcResult("b1")) + ((100 - (parseInt(calcResult("b2")) + parseInt(
+                            calcResult("b1")))) / 3))
+                    ) / 2)
+                ), 2);
                 dist += Math.pow(Math.abs(ideologies[i].effects.c1 - calcResult('c1')), 2);
                 dist += Math.pow(Math.abs(ideologies[i].effects.d1 - calcResult('d1')), 1.73856063);
                 dist += Math.pow(Math.abs(ideologies[i].effects.f1 - calcResult('f1')), 1.73856063);
@@ -268,8 +282,42 @@
             ideoText.innerHTML = ideology;
         }
 
+        function findTraits() {
+            var traits = ["mo", "an", "re"];
+
+            traits.forEach(trait => {
+                for (var i = 0; i < ideologiesInfo.length; i++) {
+                    var ideology = ideologiesInfo[i];
+                    if (ideology.title == trait && calcResult(trait) == 100) {
+                        var traitEl = document.createElement("div");
+
+                        traitEl.innerHTML = ideology.name;
+                        traitEl.classList.add("more__el");
+                        traitEl.onclick = function () {
+                            showInfo(trait);
+                        }
+                        mContainer.appendChild(traitEl);
+                    }
+                }
+            })
+        }
+
+        function calcCompass() {
+            var eAxis = (((parseInt(calcResult("a1")) + ((100 - (parseInt(calcResult("a2")) + parseInt(calcResult("a1")))) /
+                3)) + (parseInt(calcResult("b1")) + ((100 - (parseInt(calcResult("b2")) + parseInt(
+                calcResult("b1")))) / 3))) / 2) - 50;
+            var sAxis = (((parseInt(calcResult("c1")) + ((100 - (parseInt(calcResult("c2")) + parseInt(calcResult("c1")))) /
+                3)) + (parseInt(calcResult("d1")) + ((100 - (parseInt(calcResult("d2")) + parseInt(
+                calcResult("d1")))) / 3))) / 2) - 50;
+
+            cPointer.style.left = "calc(" + (45 - eAxis) + "% + 6px)";
+            cPointer.style.top = "calc(" + (45 + sAxis) + "% + 6px)";
+        }
+
         showResults();
         findIdeology();
+        findTraits();
+        calcCompass();
     </script>
 </body>
 

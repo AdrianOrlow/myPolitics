@@ -1,5 +1,4 @@
-ideologiesInfo = [
-    {
+ideologiesInfo = [{
         title: "communism",
         name: "Komunizm",
         desc: "Ideologia i doktryna społeczna głosząca zniesienie własności prywatnej i różnic klasowych, uspołecznienie środków produkcji i równy podział dóbr."
@@ -68,5 +67,20 @@ ideologiesInfo = [
         title: "nationalism",
         name: "Nacjonalizm",
         desc: "Ruch polityczny podporządkowujący interesy innych narodów we własnym celu."
+    },
+    {
+        title: "mo",
+        name: "Monarchista",
+        desc: "Uważasz, że społeczeństwo powinno być zorganizowane wokół króla."
+    },
+    {
+        title: "an",
+        name: "Anarchista",
+        desc: "Uważasz, że państwo i wszelkie jego organy są zbędne, a także uznajesz nieograniczoną wolność jednostki za wartość nadrzędną"
+    },
+    {
+        title: "re",
+        name: "Religijny",
+        desc: "Wypełniasz nakazy swojej religii z prawdopodobnie głęboką wiarą w ich sens."
     }
 ]

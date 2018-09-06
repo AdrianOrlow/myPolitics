@@ -264,7 +264,7 @@ input[type="checkbox"] {
 }
 
 .more--container {
-    width: calc(50% - .5em);
+    width: calc(100% - 21em);
     margin-top: 1em;
     height: 20em;
     border-radius: .5em;
@@ -291,10 +291,11 @@ input[type="checkbox"] {
     text-align: center;
     font-size: 1.5em;
     margin-top: 1.1em;
+    cursor: pointer;
 }
 
 .compass--container {
-    width: calc(50% - .5em);
+    width: 20em;
     margin-top: 1em;
     height: 20em;
     border-radius: .5em;
@@ -303,6 +304,19 @@ input[type="checkbox"] {
     text-align: center;
     font-weight: 600;
     line-height: 17.5em;
+    overflow: hidden;
+    position: relative;
+}
+
+.compass__pointer {
+    width: 5%;
+    height: 5%;
+    border-radius: 100%;
+    background: #e74c3c;
+    border: 2px solid #333;
+    position: absolute;
+    top: calc(45% + 6px);
+    left: calc(45% + 6px);
 }
 
 /* Icons */
@@ -432,6 +446,33 @@ input[type="checkbox"] {
     content: "";
 }
 
+.icon--mo {
+    color: #fff;
+    background: #fbcf1d;
+}
+
+.icon--mo:before {
+    content: "";
+}
+
+.icon--an {
+    color: #fff;
+    background: #34495e;
+}
+
+.icon--an:before {
+    content: "Ⓐ";
+}
+
+.icon--re {
+    color: #fff;
+    background: #1abc9c;
+}
+
+.icon--re:before {
+    content: "";
+}
+
 /* Bars */
 .bar--grey {
     background: #f5f5f5f5;
@@ -493,6 +534,18 @@ input[type="checkbox"] {
 
 .bar--nationalism {
     background: #eb9532;
+}
+
+.bar--mo {
+    background: #f1c40f;
+}
+
+.bar--an {
+    background: #2c3e50;
+}
+
+.bar--re {
+    background: #16a085;
 }
 
 /* Modals */
@@ -653,7 +706,7 @@ input[type="checkbox"] {
     bottom: 0;
     padding: 1.1em;
     background: #1abc9c;
-    color: #fafafa!important;
+    color: #fafafa !important;
     border-top-left-radius: 1.1em;
     font-weight: 600;
     font-size: 1.1em;
@@ -856,6 +909,19 @@ input[type="checkbox"] {
 
     .footer {
         width: 90%;
+    }
+
+    .compass--container,
+    .more--container {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 2em;
+    }
+
+    .more--container {
+        float: unset;
+        width: 20em;
     }
 }
 

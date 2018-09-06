@@ -4,6 +4,10 @@ questions = [{
         effectsYes: [{
             axis: "c1",
             effect: 3
+        },
+        {
+            axis: "an",
+            effect: 50
         }],
         effectsNo: [{
             axis: "c2",
@@ -326,9 +330,14 @@ questions = [{
         question: "Osoby innej religii niż moja nie mogą mieć dobrych wartości moralnych",
         answer: 0,
         effectsYes: [{
-            axis: "f2",
-            effect: 3
-        }],
+                axis: "f2",
+                effect: 3
+            },
+            {
+                axis: "re",
+                effect: 100
+            }
+        ],
         effectsNo: [{
                 axis: "b2",
                 effect: 3
@@ -405,6 +414,10 @@ questions = [{
             {
                 axis: "c1",
                 effect: 3
+            },
+            {
+                axis: "an",
+                effect: 50
             }
         ],
         effectsNo: [{
@@ -1486,7 +1499,7 @@ questions = [{
         answer: 0
     },
     {
-        question: "Monarchia to dobry ustrój polityczny",
+        question: "Monarchia to najlepszy ustrój polityczny",
         effectsYes: [{
                 axis: "c2",
                 effect: 3
@@ -1494,7 +1507,11 @@ questions = [{
             {
                 axis: "f2",
                 effect: 3
-            }
+            },
+            {
+                axis: "mo",
+                effect: 100
+            } 
         ],
         effectsNo: [{
                 axis: "f1",
