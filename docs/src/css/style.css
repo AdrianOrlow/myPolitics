@@ -263,6 +263,48 @@ input[type="checkbox"] {
     filter: brightness(95%);
 }
 
+.more--container {
+    width: calc(50% - .5em);
+    margin-top: 1em;
+    height: 20em;
+    border-radius: .5em;
+    overflow: hidden;
+    float: right;
+    display: inline-block;
+}
+
+.more__title {
+    width: 85%;
+    padding: 7.5%;
+    background: #e6e6e6;
+    border-radius: .5em;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+.more__el {
+    width: 90%;
+    padding: 5%;
+    background: #e6e6e6;
+    border-radius: .5em;
+    text-align: center;
+    font-size: 1.5em;
+    margin-top: 1.1em;
+}
+
+.compass--container {
+    width: calc(50% - .5em);
+    margin-top: 1em;
+    height: 20em;
+    border-radius: .5em;
+    background: #e6e6e6;
+    display: inline-block;
+    text-align: center;
+    font-weight: 600;
+    line-height: 17.5em;
+}
+
 /* Icons */
 .icon--communism {
     color: #fafafa;
