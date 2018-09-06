@@ -205,6 +205,15 @@
                 }
             }
 
+            var traits = ["mo", "an", "re"];
+            for (var i = 0; i < traits.length; i++) {
+                if (axes[traits[i]].val > 0) {
+                    if (url != "")
+                        url += "&"
+                    url += traits[i] + "=" + calc_score(axes[traits[i]].val, 100);
+                }
+            }
+
             url = "results?" + url
 
             location.href = url;
