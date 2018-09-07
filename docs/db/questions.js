@@ -2,13 +2,14 @@ questions = [{
         question: "Złym jest samo istnienie państwa",
         answer: 0,
         effectsYes: [{
-            axis: "c1",
-            effect: 3
-        },
-        {
-            axis: "an",
-            effect: 50
-        }],
+                axis: "c1",
+                effect: 3
+            },
+            {
+                axis: "an",
+                effect: 50
+            }
+        ],
         effectsNo: [{
             axis: "c2",
             effect: 3
@@ -1499,7 +1500,7 @@ questions = [{
         answer: 0
     },
     {
-        question: "Monarchia to najlepszy ustrój polityczny",
+        question: "Monarchia to dobry ustrój polityczny i go popieram",
         effectsYes: [{
                 axis: "c2",
                 effect: 3
@@ -1511,7 +1512,7 @@ questions = [{
             {
                 axis: "mo",
                 effect: 100
-            } 
+            }
         ],
         effectsNo: [{
                 axis: "f1",
