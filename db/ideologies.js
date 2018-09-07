@@ -125,7 +125,7 @@ ideologies = [{
         }
     },
     {
-        name: "Anarcho-syndykalizm",
+        name: "Syndykalizm",
         effects: {
             b1: 80,
             c1: 50,

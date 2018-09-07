@@ -201,6 +201,23 @@ input[type="checkbox"] {
     line-height: 2em;
 }
 
+.btn--feedback {
+    right: 0;
+    position: absolute;
+    bottom: 0;
+    padding: 1.1em;
+    background: #3498db;
+    color: #fafafa !important;
+    border-top-left-radius: 1.1em;
+    font-weight: 600;
+    font-size: 1.1em;
+    transition: .2s ease-in-out;
+}
+
+.btn--feedback:hover {
+    background: #2980b9;
+}
+
 /* Ideology Info */
 .ideology--container {
     margin-top: 2em;
